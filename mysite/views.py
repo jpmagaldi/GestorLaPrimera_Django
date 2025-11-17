@@ -62,7 +62,7 @@ def guardarCliente(request):
 	lista = request.POST.get('lista')
 	resp = request.POST.get('resp')
 	provincia = Zonas.objects.get(nombre=request.POST.get('prov'))
-	lista = Listas.objects.get(id=request.POST.get('lista'))
+	lista = Listas.objects.get(nombre=request.POST.get('lista'))
 	resp = RespIva.objects.get(descripcion=request.POST.get('resp'))
 	
 	Clientes.objects.update_or_create(cuit=oldcuit, defaults={
