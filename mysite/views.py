@@ -113,17 +113,25 @@ def borrarCliente(request):
 def buscarCliente(request):
 	global Padron
 	query = request.GET.get('q', '')
-	Padron.Consultar(query)
-	if Padron.imp_iva in ['N', 'NI']:
-		err = True
-	else:
-		err = False
-	if Padron.imp_iva in ['AC', 'S']:
-		resp = 'RESPONSABLE INSCRIPTO'
-	elif Padron.imp_iva == 'EX':
-		resp = 'EXENTO'
-	else:
+	try:
+		Padron.Consultar(query)
+		err2 = False
+		if Padron.imp_iva in ['N', 'NI']:
+			err = True
+			codigo = '1010'
+		else:
+			err = False
+		if Padron.imp_iva in ['AC', 'S']:
+			resp = 'RESPONSABLE INSCRIPTO'
+		elif Padron.imp_iva == 'EX':
+			resp = 'EXENTO'
+		else:
+			resp = ''
+	except:
+		err2 = True
+		codigo = '1011'
 		resp = ''
+		err = False
 
 	return JsonResponse({
 		'razons': Padron.denominacion,
@@ -131,15 +139,18 @@ def buscarCliente(request):
 		'resp': resp,
 		'err': err,
 		'prov': Padron.provincia,
-		'codigo': '1010'
+		'codigo': codigo,
+		'err2': err2
 	})
 
 @never_cache
 def errorArca(request):
-	if request.GET.get('codigo') != '1010':
+	if request.GET.get('codigo') not in ['1010','1011']:
 		return HttpResponseForbidden("Acceso denegado")
-	
-	messages.error(request, "Error en ARCA. CUIT dudoso")
+	if request.GET.get('codigo') == '1010':
+		messages.error(request, "Error en ARCA. CUIT dudoso")
+	else:
+		messages.error(request, "Error en ARCA. CUIT Inválido")
 	return redirect(request.META.get('HTTP_REFERER', '/'))
 
 @never_cache
