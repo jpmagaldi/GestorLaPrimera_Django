@@ -75,5 +75,8 @@ Then visit https://localhost:8000 in your browser.
 
 ![](https://i.imgur.com/Khl51oY.png)
 
+![](https://i.imgur.com/daQvsew.png)
+
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
