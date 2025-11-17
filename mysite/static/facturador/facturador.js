@@ -36,7 +36,12 @@ document.addEventListener("DOMContentLoaded", function () {
 	/* Funciones de ARCA */
 
 	document.querySelector('#modalarca').style.display = 'block';
-	fetch('/conectar-wsaa')
+	fetch(`/api/internal/conectar-wsaa?q=wsfe`, {
+		headers: {
+			'X-Internal-Token': 'token-seguro-123',
+			'Content-Type': 'application/json'
+		},
+	})
 		.then(res => res.json())
 		.then(data => {
 			const estado = document.getElementById('estado-wsaa');
@@ -73,7 +78,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		// Realizar petición AJAX
 		try {
-			const response = await fetch(`/buscar_clientes?q=${query}`);
+			const response = await fetch(`/api/internal/facturador/buscar_clientes?q=${query}`, {
+				headers: {
+					'X-Internal-Token': 'token-seguro-123',
+					'Content-Type': 'application/json'
+				},
+			});
 			const data = await response.json();
 
 			vaciarTabla(tabla)
@@ -117,7 +127,12 @@ document.addEventListener("DOMContentLoaded", function () {
 		var cuit = boton.parentNode.parentNode.cells[0].innerText;
 		var letra
 		// Llamada AJAX a Django para procesar los datos
-		fetch(`/seleccionar_cliente?q=${cuit}`)
+		fetch(`/api/internal/facturador/seleccionar_cliente?q=${cuit}`, {
+			headers: {
+				'X-Internal-Token': 'token-seguro-123',
+				'Content-Type': 'application/json'
+			},
+		})
 			.then(response => response.json())
 			.then(data => {
 				document.getElementById("razons").value = `${data.dato_cli[0].razons}`;
@@ -131,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
 					if (data.dato_cli[0].responsabilidad__descripcion === 'RESPONSABLE INSCRIPTO') {
 						letra = 1
 					} else {
-						
+
 						letra = 6
 					}
 				} else {
@@ -141,7 +156,12 @@ document.addEventListener("DOMContentLoaded", function () {
 						letra = 8
 					}
 				}
-				fetch(`/obt-nrofact?q=${letra}`)
+				fetch(`/api/internal/facturador/obt-nrofact?q=${letra}`, {
+					headers: {
+						'X-Internal-Token': 'token-seguro-123',
+						'Content-Type': 'application/json'
+					},
+				})
 					.then(res => res.json())
 					.then(data => {
 						document.getElementById("Nrofact").value = `${data.Nrofact}`;
@@ -151,13 +171,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 					})
 					.catch(error => console.error("Error en la solicitud:", error));
-			
-			
+
+
 			})
 			.catch(error => console.error("Error en la solicitud:", error));
 
 
-		
+
 	}
 
 
@@ -170,7 +190,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		// Realizar petición AJAX
 		try {
-			const response = await fetch(`/buscar_productos?q=${query}&w=${query2}`)
+			const response = await fetch(`/api/internal/facturador/buscar_productos?q=${query}&w=${query2}`, {
+				headers: {
+					'X-Internal-Token': 'token-seguro-123',
+					'Content-Type': 'application/json'
+				},
+			})
 			const data = await response.json();
 
 			vaciarTabla(tabla)
@@ -225,7 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			})
 		} catch {
 			mostrarAlerta('⚠️ Error de conexión. Intenta nuevamente.')
-		}	
+		}
 	};
 
 	BProductos.onclick = function () {
@@ -350,14 +375,14 @@ document.addEventListener("DOMContentLoaded", function () {
 		if (document.getElementById("Nrofact").value != '') {
 			document.getElementById("btconfirmar").removeAttribute("disabled");
 			generarJson()
-		}		
+		}
 	}
 
 
 
 
 	/* Funciones Auxiliares */
-	
+
 	function vaciarTabla(tabla) {
 		while (tabla.firstChild) {
 			tabla.removeChild(tabla.firstChild);
@@ -471,7 +496,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		inputJson = document.getElementById('inputJson')
 		inputJson.value = JSON.stringify(datos)
 	}
-	
+
 });
 
 

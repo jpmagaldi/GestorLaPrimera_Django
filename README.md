@@ -7,14 +7,33 @@ The initial idea is to use the same database currently used by the company. For 
 Important: The Ui is in spanish.
 
 
-### Features:
-- Can already connect to ARCA to request the latest issued invoice \
-(for security reasons, the .crt and .key files that go in the "cert" folder have been removed)
-- Clients and products can be searched directly from the web interface (via AJAX calls)
-- When products are selected, the system also calculates TAX and the total amount
-- Can change price and quantity (with correspondingly validators) for every selected product
-- Electronic invoices can be issued directly from the application, with CAE and CAE Vto.
-- Admin interface is completely functional.
+## Features:
+
+-  ### Invoice:
+    - Can already connect to ARCA servers to request the latest issued invoice \
+    (for security reasons, the .crt and .key files that go in the "cert" folder have been removed)
+    - Clients and products can be searched directly from the web interface (via AJAX calls)
+    - When products are selected, the system also calculates TAX and the total amount
+    - Can change price and quantity (with correspondingly validators) for every selected product
+    - Electronic invoices can be issued directly from the application, with CAE and CAE Vto.
+
+- ### CRUD:
+    - Can change everything from clients.
+    - Can communicate with ARCA servers, for validate CUIT number
+    - Can change everything from suppliers. (Work in progress)
+
+
+- ### Interface:
+    - Admin interface is completely functional.
+
+- ### Reports:
+    - Work in progress
+
+
+- ### Errors handling (with respective menssage error):
+    - Can't duplicate client CUIT
+    - If CUIT is invalidate (error in ARCA servers), can't create client
+    - If can't connect with ARCA servers, user can't generate invoice
 
 
 

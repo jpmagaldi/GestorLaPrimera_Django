@@ -14,7 +14,13 @@ def crear_registros_iniciales(sender, **kwargs):
             RespIva.objects.create(descripcion='EXENTO')
             RespIva.objects.create(descripcion='MONOTRIBUTO')
         if not Zonas.objects.exists():
-            zonas_obj = Zonas.objects.create(nombre='BUENOS AIRES', dgr=27)
+            zonas = ['CIUDAD AUTONOMA BUENOS AIRES','BUENOS AIRES','CATAMARCA','CORDOBA','CORRIENTES','ENTRE RIOS',
+                'JUJUY','MENDONZA','LA RIOJA','SALTA','SAN JUAN','SAN LUIS','SANTA FE', 'SANTIAGO DEL ESTERO', 'TUCUMAN', 'CHACO',
+                'CHUBUT','FORMOSA','MISIONES','NEUQUEN','LA PAMPA','RIO NEGRO','SANTA CRUZ','TIERRA DEL FUEGO']
+            i = 0
+            for zona in zonas:
+                Zonas.objects.create(id=i, nombre=zona, dgr=0)
+                i += 1
         if not Listas.objects.exists():
             lista_obj = Listas.objects.create(nombre='SUPERMERCADOS')
             lista_obj1 = Listas.objects.create(nombre='MINORISTAS')
@@ -24,7 +30,7 @@ def crear_registros_iniciales(sender, **kwargs):
             Productos.objects.create(nombre='PAN DE MIGA 1X10', lista=lista_obj1, precio=1500.00, fecha=ahora, iva='21.0')
         if not Clientes.objects.exists():
             Clientes.objects.create(cuit='30716920093', razons= 'ASD SISTEMAS MEDICOS',
-                direccion='UGARTE MANUEL 3867 Piso:3 Dpto:H', provincia=zonas_obj,
+                direccion='UGARTE MANUEL 3867 Piso:3 Dpto:H', provincia=Zonas.objects.get(id=0),
                 lista=lista_obj, responsabilidad=respiva_obj, descuento=0, recargo=0)
         if not Comprobantes.objects.exists():
             Comprobantes.objects.create(descripcion='FACTURA A', codigo='001')

@@ -21,11 +21,21 @@ from mysite import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
+    
+    path('abmclientes/', views.abmClientes, name='abmClientes'),
+    path('api/internal/abmclientes/guadar_cliente/', views.guardarCliente, name='guardarCliente'),
+    path('api/internal/abmclientes/editar_clientes/', views.editarCliente, name='editarCliente'),
+    path('api/internal/abmclientes/borrar_clientes/', views.borrarCliente, name='borrarCliente'),
+    path('api/internal/abmclientes/buscar_clientes/', views.buscarCliente, name='buscarCliente'),
+    path('api/internal/abmclientes/error_arca/', views.errorArca, name='errorArca'),
+
     path('facturador/', views.facturador, name='facturador'),
-    path('buscar_clientes/', views.buscar_clientes, name='buscar_clientes'),
-    path('seleccionar_cliente/', views.select_cliente, name='select_clientes'),
-    path('buscar_productos/', views.buscar_productos, name='buscar_productos'),
-    path('conectar-wsaa/', views.conectar_wsaa, name='conectar_wsaa'),
-    path('obt-nrofact/', views.obtener_nrofact, name='obtener_nrofact'),
-    path('generarFactura/', views.generarFactura, name='generarFactura'),
+    path('api/internal/facturador/buscar_clientes/', views.buscar_clientes, name='buscar_clientes'),
+    path('api/internal/facturador/seleccionar_cliente/', views.select_cliente, name='select_clientes'),
+    path('api/internal/facturador/buscar_productos/', views.buscar_productos, name='buscar_productos'),
+    path('api/internal/facturador/obt-nrofact/', views.obtener_nrofact, name='obtener_nrofact'),
+    path('api/internal/facturador/generarFactura/', views.generarFactura, name='generarFactura'),
+    
+    path('api/internal/conectar-wsaa/', views.conectar_wsaa, name='conectar_wsaa'),
+
 ]

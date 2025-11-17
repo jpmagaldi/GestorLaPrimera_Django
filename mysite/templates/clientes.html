@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}ABM Clientes{% endblock %}
+
+
+
+{% block head %}
+
+<head>
+	<link rel="stylesheet" href="{% static 'clientes/clientes.css' %}">
+	<link rel="license" href="https://www.opensource.org/licenses/mit-license/">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<div class="messages">
+	{% for message in messages %}
+	<div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+		{{ message }}
+	</div>
+	{% endfor %}
+</div>
+{% endif %}
+
+
+<h1>Gestión de Clientes</h1>
+<div class="tabla-scroll">
+<table>
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th>CUIT</th>
+			<th>Lista</th>
+			<th>Alias</th>
+			<th>Acciones</th>
+		</tr>
+	</thead>
+	<tbody id="clientes-body">
+		{% for cliente in context.clientes %}
+		<tr>
+			<td>{{cliente.razons}}</td>
+			<td class="campo-cuit">{{cliente.cuit}}</td>
+			<td>{{cliente.lista}}</td>
+			<td>{{cliente.alias}}</td>
+			<td>
+				<form method="POST" action="{% url 'borrarCliente' %}" onsubmit="return confirmarAccion()">
+					{% csrf_token %}
+					<input type="hidden" id="bCuit" name="bCuit" value="{{cliente.cuit}}">
+					<button type="button" class="button-table">
+						<span class="material-icons">edit</span>
+					</button>
+					<button type="submit" class="button-table">
+						<span class="material-icons">delete</span>
+					</button>
+				</form>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+</div>
+<div class="form-container">
+	<h2 id="form-title">Agregar Cliente</h2>
+	<form id="cliente-form" method="POST" action="{% url 'guardarCliente' %}">
+		{% csrf_token %}
+		<input type="hidden" id="accionInput" name='accionInput' value="guardar"/>
+		<input type="hidden" id="oldCuit" name='oldCuit' value=""/>
+		<div class="form-grid">
+			<!-- CUIT centrado en una fila completa -->
+			<div class="form-group full-width">
+				<label for="cuit">CUIT</label>
+				<div class="input-with-button">
+					<input type="text" id="cuit" name="cuit" autocomplete="off" placeholder="Ingrese CUIT sin guiones" required>
+					<button type="button" class="button-table" id="searchBtton">
+						<span class="material-icons">search</span>
+					</button>
+				</div>
+			</div>
+
+			<!-- Campos en pares -->
+			<div class="form-group">
+				<label for="razons">Razón Social</label>
+				<input type="text" id="razons" autocomplete="off" name="razons" maxlength="25" required>
+			</div>
+			<div class="form-group">
+				<label for="dir">Dirección</label>
+				<input type="text" id="dir" autocomplete="off" name="dir" maxlength="25" required>
+			</div>
+
+			<div class="form-group">
+				<label for="provincia">Provincia</label>
+				<select id="prov" name="prov" required>
+					<option value="">Seleccione una provincia</option>
+					{% for zona in context.prov %}
+					<option value="{{ zona.nombre }}">{{ zona.nombre }}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="alias">Alias</label>
+				<input type="text" id="alias" autocomplete="off" name="alias" maxlength="15">
+			</div>
+
+			<div class="form-group">
+				<label for="lista">Lista</label>
+				<select id="lista" name="lista" required>
+					<option value="">Seleccione una lista</option>
+					{% for lista in context.listas %}
+					<option value="{{ lista.id }}">{{ lista.nombre }}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="resp">Responsabilidad</label>
+				<select id="resp" name="resp" required>
+					<option value="">Seleccione una Responsabilidad</option>
+					{% for resp in context.resp %}
+					<option value="{{ resp.descripcion }}">{{ resp.descripcion }}</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="desc">Descuento (%)</label>
+				<input type="number" id="desc" name="desc" value="0.00" maxlength="5" step="0.01" autocomplete="off">
+			</div>
+			<div class="form-group">
+				<label for="rec">Recargo (%)</label>
+				<input type="number" id="rec" name="rec" value="0.00" maxlength="5" step="0.01" autocomplete="off">
+			</div>
+		</div>
+
+		<div class="actions">
+			<button class="save-button" type="submit" id="submitBtton">Guardar</button>
+		</div>
+	</form>
+
+</div>
+
+
+<script src="{% static 'clientes/clientes.js' %}"></script>
+{% endblock %}
+
+{% block foot %}
+
+{% endblock %}

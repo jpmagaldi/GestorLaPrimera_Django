@@ -50,8 +50,8 @@ from .padron import TIPO_CLAVE, PROVINCIAS
 
 HOMO = False
 LANZAR_EXCEPCIONES = True
-WSDL = "https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA4?wsdl"
-#WSDL = "https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA5?wsdl"
+#WSDL = "https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA4?wsdl"
+WSDL = "https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA5?wsdl"
 CONFIG_FILE = "rece.ini"
 
 

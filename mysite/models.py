@@ -11,9 +11,6 @@ from decimal import Decimal
 
 
 
-
-
-
 class Clientes(models.Model):
     cuit = models.CharField(max_length=13, unique=True)
     razons = models.CharField(max_length=60)  
@@ -95,7 +92,7 @@ class Ventas(models.Model):
     fecha = models.DateField()
     comprobante = models.ForeignKey(Comprobantes, on_delete=models.PROTECT)
     n_fact = models.CharField(max_length=13)
-    cliente = models.ForeignKey(Clientes, on_delete=models.PROTECT, to_field='cuit')
+    cliente = models.ForeignKey(Clientes, on_delete=models.PROTECT)
     pan105 = models.DecimalField(max_digits=9, decimal_places=2)
     pan21 = models.DecimalField(max_digits=9, decimal_places=2) 
     exento = models.DecimalField(max_digits=9, decimal_places=2)
