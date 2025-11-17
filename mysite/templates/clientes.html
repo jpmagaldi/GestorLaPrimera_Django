@@ -97,7 +97,7 @@
 				<select id="prov" name="prov" required>
 					<option value="">Seleccione una provincia</option>
 					{% for zona in context.prov %}
-					<option value="{{ zona.nombre }}">{{ zona.nombre }}</option>
+					<option value="{{zona.nombre}}">{{ zona.nombre }}</option>
 					{% endfor %}
 				</select>
 			</div>
@@ -111,7 +111,7 @@
 				<select id="lista" name="lista" required>
 					<option value="">Seleccione una lista</option>
 					{% for lista in context.listas %}
-					<option value="{{ lista.id }}">{{ lista.nombre }}</option>
+					<option value="{{ lista.nombre }}">{{ lista.nombre }}</option>
 					{% endfor %}
 				</select>
 			</div>

@@ -41,7 +41,7 @@ cuitInput.addEventListener("input", () => {
 
 searchBtton.addEventListener("click", async () => {
 	searchBtton.disabled = true
-	cuitInput.disabled = true
+	cuitInput.readOnly = true
 
 	const response = await fetch(`/api/internal/conectar-wsaa?q=ws_sr_constancia_inscripcion`, {
 		headers: {
@@ -64,6 +64,8 @@ searchBtton.addEventListener("click", async () => {
 		dirInput.value = data.dir
 		provInput.value = data.prov
 		respInput.value = data.resp
+
+		
 	}
 })
 
@@ -81,7 +83,7 @@ document.querySelectorAll(".button-table").forEach(boton => {
 			},
 		})
 		const data = await response.json()
-
+		console.log(data)
 		cuitInput.value = cuit
 		razonsInput.value = data.razons
 		dirInput.value = data.dir

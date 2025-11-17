@@ -61,9 +61,9 @@ def guardarCliente(request):
 	provincia = request.POST.get('prov')
 	lista = request.POST.get('lista')
 	resp = request.POST.get('resp')
-	provincia = Zonas.objects.get(id=request.POST.get('prov'))
+	provincia = Zonas.objects.get(nombre=request.POST.get('prov'))
 	lista = Listas.objects.get(id=request.POST.get('lista'))
-	resp = RespIva.objects.get(id=request.POST.get('resp'))
+	resp = RespIva.objects.get(descripcion=request.POST.get('resp'))
 	
 	Clientes.objects.update_or_create(cuit=oldcuit, defaults={
 		'cuit':newcuit,
@@ -85,10 +85,10 @@ def editarCliente(request):
 	return JsonResponse({
 		'razons': cliente.razons,
 		'dir': cliente.direccion,
-		'prov': cliente.provincia.id,
+		'prov': cliente.provincia.nombre,
 		'alias': cliente.alias,
-		'lista': cliente.lista.id,
-		'resp': cliente.responsabilidad.id,
+		'lista': cliente.lista.nombre,
+		'resp': cliente.responsabilidad.descripcion,
 		'desc': cliente.descuento,
 		'rec': cliente.recargo,
 	})
