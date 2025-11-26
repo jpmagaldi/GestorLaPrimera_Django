@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+
+
+{% block title %}Detalles Factura{% endblock %}
+
+
+
+{% block head %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'reportes/detalleFactura.css' %}">
+    <link rel="license" href="https://www.opensource.org/licenses/mit-license/">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+{% endblock %}
+
+{% block content %}
+<h1>Detalles de Factura</h1>
+<div class="factura-container">
+  <section class="factura-encabezado">
+    <h2>Factura N° {{ factura.n_fact }}</h2>
+    <div class="datos-generales">
+      <div><strong>Cliente:</strong> {{ factura.cliente.razons }}</div>
+      <div><strong>CUIT :</strong> {{ factura.cliente.cuit }}</div>
+      <div><strong>Comprobante:</strong> {{ factura.comprobante.descripcion }}</div>
+      <div><strong>Fecha:</strong> {{ factura.fecha|date:"d-m-Y" }}</div>
+    </div>
+  </section>
+
+  <section class="factura-items">
+    <table class="tabla-items">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Precio Unitario (s/iva)</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in itemFactura %}
+        <tr>
+          <td>{{ item.producto }}</td>
+          <td>{{ item.cantidad }}</td>
+          <td>${{ item.precio_u }}</td>
+          <td>${{ item.total }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <hr class="solid">
+
+  <section class="datos-generales">
+    <div><strong>Subtotal s/iva:</strong> ${{ subtotal }}</div>
+    <div><strong>Iva 10.5%:</strong> ${{ factura.iva105 }}</div>
+    <div><strong>Iva 21%:</strong> ${{ factura.iva21 }}</div>
+    <div><strong>Total:</strong> ${{ factura.total }}</div>
+  </section>
+</div>
+
+<div class="center-container">
+  <a class="btn-modern" onclick="window.history.back();">Volver</a>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block foot %}
+
+{% endblock %}

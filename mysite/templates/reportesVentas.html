@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+
+
+{% block title %}Reportes Ventas{% endblock %}
+
+
+
+{% block head %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'reportes/reportesVentas.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="license" href="https://www.opensource.org/licenses/mit-license/">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+{% endblock %}
+
+{% block content %}
+{{ url_template|json_script:"url-template" }}
+<main class="contenedor-reportes">
+    <h1>Reporte de Ventas</h1>
+    <section class="filtros-fecha">
+        <input type="hidden" id="fechaInicioh" value="{{context.fechaIni}}">
+        <input type="hidden" id="fechaFinh" value="{{context.fechaFin}}">
+        
+        <label for="fechaInicio">Desde:</label>
+        <input type="text" id="fechaInicio" name="fechaInicio" placeholder="Seleccionar fecha">
+
+        <label for="fechaFin">Hasta:</label>
+        <input type="text" id="fechaFin" name="fechaFin" placeholder="Seleccionar fecha">
+
+        <button type="submit" id="btnBuscar">Buscar</button>
+
+        <label id="labelInfo" class="label-alerta" for="labelInfo">NO HAY FACTURAS DISPONIBLES</label>
+    </section>
+    <section class="tabla-resultados">
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Comprobante</th>
+                    <th>Nro. Comprobante</th>
+                    <th>Cliente</th>
+                    <th>Total</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tablaReportes">
+            </tbody>
+        </table>
+    </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+<script src="{% static 'reportes/reportesVentas.js' %}"></script>
+
+{% endblock %}
+
+{% block foot %}
+
+{% endblock %}

@@ -4,7 +4,6 @@ from .models import *
 
 # Register your models here.
 admin.site.register(Comprobantes)
-admin.site.register(VentaProductos)
 admin.site.register(RespIva)
 admin.site.register(Zonas)
 admin.site.register(Listas)
@@ -34,3 +33,8 @@ class ProductosAdmin(admin.ModelAdmin):
     list_display = ["nombre", "lista", 'precio', 'fecha']
     search_fields = ('nombre', "lista")
     list_filter = ('lista',)
+
+@admin.register(VentaProductos)
+class VentaProductosAdmin(admin.ModelAdmin):    
+    list_display = ["n_fact", "comprobante", 'producto', 'cantidad', 'total']
+    search_fields = ('n_fact', 'comprobante__descripcion')

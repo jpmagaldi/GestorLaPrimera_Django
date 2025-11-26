@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+	
 	const BCliente = document.getElementById("BCliente");
 	const BProductos = document.getElementById("BProductos");
 	const cerrarModalClientes = document.getElementById("CerrarModalClientes");
@@ -18,6 +19,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	const Facturacheck = document.getElementById("option1label");
 	const Facturacheck1 = document.getElementById("option2label");
 	const radio = document.getElementsByName("toggle")
+	const urlTemplate = JSON.parse(
+		document.getElementById("url-template").textContent
+	);
 
 	const regex = /^(?:\d{1,8}|\d{1,8}\.\d{1,4})$/;
 
@@ -36,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	/* Funciones de ARCA */
 
 	document.querySelector('#modalarca').style.display = 'block';
-	fetch(`/api/internal/conectar-wsaa?q=wsfe`, {
+	fetch(urlTemplate.url_wsaa, {
 		headers: {
 			'X-Internal-Token': 'token-seguro-123',
 			'Content-Type': 'application/json'
@@ -78,7 +82,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		// Realizar petición AJAX
 		try {
-			const response = await fetch(`/api/internal/facturador/buscar_clientes?q=${query}`, {
+			const url = urlTemplate.url_bClientes.replace('Cliente', query)
+			const response = await fetch(url, {
 				headers: {
 					'X-Internal-Token': 'token-seguro-123',
 					'Content-Type': 'application/json'
@@ -124,10 +129,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	function seleccionarFilaCliente(boton) {
 		// Obtener la fila que contiene el botón
-		var cuit = boton.parentNode.parentNode.cells[0].innerText;
+		const cuit = boton.parentNode.parentNode.cells[0].innerText;
 		var letra
 		// Llamada AJAX a Django para procesar los datos
-		fetch(`/api/internal/facturador/seleccionar_cliente?q=${cuit}`, {
+		const url = urlTemplate.url_sCliente.replace('Cliente', cuit)
+		fetch(url, {
 			headers: {
 				'X-Internal-Token': 'token-seguro-123',
 				'Content-Type': 'application/json'
@@ -190,7 +196,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		// Realizar petición AJAX
 		try {
-			const response = await fetch(`/api/internal/facturador/buscar_productos?q=${query}&w=${query2}`, {
+			const url = urlTemplate.url_bProductos.replace('Nombre', query).replace('Lista', query2)
+			const response = await fetch(url, {
 				headers: {
 					'X-Internal-Token': 'token-seguro-123',
 					'Content-Type': 'application/json'
@@ -377,8 +384,6 @@ document.addEventListener("DOMContentLoaded", function () {
 			generarJson()
 		}
 	}
-
-
 
 
 	/* Funciones Auxiliares */

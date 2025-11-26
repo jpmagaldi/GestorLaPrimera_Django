@@ -1,10 +1,7 @@
-<!-- ============================================ -->
-<!--                 Navigation                   -->
-<!-- ============================================ -->
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'templates\header\header.css' %}"/>
+<link rel="stylesheet" href="{% static 'header\header.css' %}"/>
 {% endblock %}
 
 
@@ -15,10 +12,21 @@
     <ul class="nav-links">
       <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Inicio</a></li>
       <li><a href="{% url 'facturador' %}" class="{% if request.resolver_match.url_name == 'facturador' %}active{% endif %}">Facturacion</a></li>
+      <li class="desplegable">
+        <a href="#" class="toggle-submenu {% if request.resolver_match.url_name == 'reportesVentas' %}active{% endif %}">Reportes ▾</a>
+        <ul class="submenu">
+          <li><a href="{% url 'reportesVentas' %}" class="{% if request.resolver_match.url_name == 'reportesVentas' %}active{% endif %}">Ventas</a>
+          </li>
+        </ul>
+      </li>
       <li><a href="{% url 'abmClientes' %}" class="{% if request.resolver_match.url_name == 'abmClientes' %}active{% endif %}">Clientes</a></li>
       <li><a href="{% url 'admin:index' %}">Administracion</a></li>
     </ul>
   </nav>
+
+
+  <script src="{% static 'header/header.js' %}"></script>
+
 </header>
 
 

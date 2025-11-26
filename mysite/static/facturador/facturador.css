@@ -368,3 +368,14 @@
 #option2:checked ~ label[for="option2"] {
   color: white;
 }
+
+.alert {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.alert.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}

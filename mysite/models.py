@@ -76,6 +76,10 @@ class Productos(models.Model):
     class Meta:
         verbose_name = "Producto"
         verbose_name_plural = "Productos"
+        unique_together = (('lista', 'nombre'),)
+
+    def __str__(self):
+        return (self.nombre)
 
 class Comprobantes(models.Model):
     descripcion = models.CharField(unique=True, max_length=45)
@@ -93,13 +97,13 @@ class Ventas(models.Model):
     comprobante = models.ForeignKey(Comprobantes, on_delete=models.PROTECT)
     n_fact = models.CharField(max_length=13)
     cliente = models.ForeignKey(Clientes, on_delete=models.PROTECT)
-    pan105 = models.DecimalField(max_digits=9, decimal_places=2)
-    pan21 = models.DecimalField(max_digits=9, decimal_places=2) 
-    exento = models.DecimalField(max_digits=9, decimal_places=2)
-    iva105 = models.DecimalField(max_digits=9, decimal_places=2) 
-    iva21 = models.DecimalField(max_digits=9, decimal_places=2)
-    otros = models.DecimalField(max_digits=9, decimal_places=2)
-    total = models.DecimalField(max_digits=9, decimal_places=2)
+    pan105 = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
+    pan21 = models.DecimalField(max_digits=9, decimal_places=2, default=0.00) 
+    exento = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
+    iva105 = models.DecimalField(max_digits=9, decimal_places=2, default=0.00) 
+    iva21 = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
+    otros = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
+    total = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
 
     class Meta:
         unique_together = (('cliente', 'comprobante', 'n_fact'),)
@@ -107,7 +111,7 @@ class Ventas(models.Model):
         verbose_name_plural = "Ventas"
 
     def __str__(self):
-        return self.n_fact
+       return self.n_fact
 
 class VentaProductos(models.Model):
     comprobante = models.ForeignKey(Comprobantes, models.PROTECT) 
@@ -115,11 +119,10 @@ class VentaProductos(models.Model):
     producto = models.CharField(max_length=45)
     cantidad = models.CharField(max_length=10)
     precio_u = models.DecimalField(max_digits=9, decimal_places=4)
-    cambio = models.IntegerField()
     total = models.DecimalField(max_digits=9, decimal_places=2)
 
     def __str__(self):
-        return self.n_fact
+        return self.n_fact.n_fact
     
     class Meta:
         verbose_name = "VentaProductos"

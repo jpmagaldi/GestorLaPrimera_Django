@@ -22,13 +22,12 @@ Important: The Ui is in spanish.
     - Can communicate with ARCA servers, for validate CUIT number
     - Can change everything from suppliers. (Work in progress)
 
-
 - ### Interface:
     - Admin interface is completely functional.
 
 - ### Reports:
+    - Invoices can search by date, with respective invoice details
     - Work in progress
-
 
 - ### Errors handling (with respective menssage error):
     - Can't duplicate client CUIT
@@ -77,6 +76,9 @@ Then visit https://localhost:8000 in your browser.
 
 ![](https://i.imgur.com/daQvsew.png)
 
+![](https://i.imgur.com/6I4MZoA.png)
+
+![](https://i.imgur.com/7bAfk7E.png)
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

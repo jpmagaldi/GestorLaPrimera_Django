@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block content %}
-
+{{ url_template|json_script:"url-template" }}
 {% if messages %}
 <div class="messages">
 	{% for message in messages %}

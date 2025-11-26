@@ -30,12 +30,15 @@ urlpatterns = [
     path('api/internal/abmclientes/error_arca/', views.errorArca, name='errorArca'),
 
     path('facturador/', views.facturador, name='facturador'),
-    path('api/internal/facturador/buscar_clientes/', views.buscar_clientes, name='buscar_clientes'),
-    path('api/internal/facturador/seleccionar_cliente/', views.select_cliente, name='select_clientes'),
-    path('api/internal/facturador/buscar_productos/', views.buscar_productos, name='buscar_productos'),
+    path('api/internal/facturador/buscar_clientes/<str:Cliente>', views.buscar_clientes, name='buscar_clientes'),
+    path('api/internal/facturador/seleccionar_cliente/<str:Cliente>', views.select_cliente, name='select_clientes'),
+    path('api/internal/facturador/buscar_productos/<str:Nombre>/<str:Lista>', views.buscar_productos, name='buscar_productos'),
     path('api/internal/facturador/obt-nrofact/', views.obtener_nrofact, name='obtener_nrofact'),
     path('api/internal/facturador/generarFactura/', views.generarFactura, name='generarFactura'),
     
+    path('reportes/ventas', views.reportesVentas, name='reportesVentas'),
+    path('reportes/ventas/ver-factura/<str:Comprobante>/<str:Nro>/', views.verFactura, name='verFactura'),
+    path('api/internal/reportes/ventas/reporte-por-fecha/<str:fechaIni>/<str:fechaFin>/', views.busquedaVentas, name='busquedaVentas'),
     path('api/internal/conectar-wsaa/', views.conectar_wsaa, name='conectar_wsaa'),
 
 ]
