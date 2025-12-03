@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from mysite import views
 
 urlpatterns = [
@@ -38,7 +38,11 @@ urlpatterns = [
     
     path('reportes/ventas', views.reportesVentas, name='reportesVentas'),
     path('reportes/ventas/ver-factura/<str:Comprobante>/<str:Nro>/', views.verFactura, name='verFactura'),
-    path('api/internal/reportes/ventas/reporte-por-fecha/<str:fechaIni>/<str:fechaFin>/', views.busquedaVentas, name='busquedaVentas'),
+    
+    path('api/internal/reportes/ventas/busquedaReportes/<str:fechaIni>/<str:fechaFin>/', views.busquedaVentas, name='busquedaVentasFSR'),
+    path('api/internal/reportes/ventas/busquedaReportes/<str:fechaIni>/<str:fechaFin>/<str:razonS>/', views.busquedaVentas, name='busquedaVentasFCR'),
+    path('api/internal/reportes/ventas/busquedaReportes/<str:razonS>/', views.busquedaVentas, name='busquedaVentasRSF'),
+    
     path('api/internal/conectar-wsaa/', views.conectar_wsaa, name='conectar_wsaa'),
 
 ]

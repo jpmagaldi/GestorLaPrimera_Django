@@ -23,20 +23,53 @@
 {{ url_template|json_script:"url-template" }}
 <main class="contenedor-reportes">
     <h1>Reporte de Ventas</h1>
-    <section class="filtros-fecha">
-        <input type="hidden" id="fechaInicioh" value="{{context.fechaIni}}">
-        <input type="hidden" id="fechaFinh" value="{{context.fechaFin}}">
-        
-        <label for="fechaInicio">Desde:</label>
-        <input type="text" id="fechaInicio" name="fechaInicio" placeholder="Seleccionar fecha">
+    <div class="contenedor-derecha">
+        <div id='boxunico' class="box-unico">
+            <div class="box-titulo">
+                Seleccione una opción
+            </div>
+            <label class="opcion">
+                <input type="checkbox" name="grupoFechas" class="chk-unico" checked>
+                Fecha
+            </label>
+            <label class="opcion">
+                <input type="checkbox" name="grupoCliente" class="chk-unico">
+                Cliente
+            </label>
+            <label class="opcion">
+                <input type="checkbox" name="ChkAmbos" class="chk-unico">
+                Fecha y Cliente
+            </label>
+            <button type="submit" id="btnBuscar">Buscar</button>
+        </div>
+    </div>
 
-        <label for="fechaFin">Hasta:</label>
-        <input type="text" id="fechaFin" name="fechaFin" placeholder="Seleccionar fecha">
+    <div id="grupoFechas" class="grupoFechas">
+        <div class="titulo-grupo-fechas">Rango de fechas</div>
+        <section class="filtros-fecha">
+            <div class="grupo-label-input">
+                <label for="fechaInicio">Desde:</label>
+                <input type="text" id="fechaInicio" name="fechaInicio" placeholder="Seleccionar fecha">
+            </div>
+            <div class="grupo-label-input">
+                <label for="fechaFin">Hasta:</label>
+                <input type="text" id="fechaFin" name="fechaFin" placeholder="Seleccionar fecha">
+            </div>
+        </section>
+    </div>
 
-        <button type="submit" id="btnBuscar">Buscar</button>
+    <div id="grupoCliente" class="grupoCliente">
+        <div class="titulo-grupo-fechas">Cliente</div>
+        <section class="filtros-fecha">
+            <div class="grupo-label-input">
+                <label for="fechaInicio">Razon Social:</label>
+                <input type="text" id="inputRazon" name="inputRazon" placeholder="Ingresar Razon Social">
+            </div>
+        </section>
+    </div>
 
-        <label id="labelInfo" class="label-alerta" for="labelInfo">NO HAY FACTURAS DISPONIBLES</label>
-    </section>
+<label id="labelInfo" class="label-alerta" for="labelInfo">NO HAY FACTURAS DISPONIBLES</label>
+
     <section class="tabla-resultados">
         <table>
             <thead>

@@ -157,33 +157,51 @@ def errorArca(request):
 
 def reportesVentas(request):
 	url_verFactura = reverse('verFactura', args=['Comprobante', 'Nro'])
-	url_reportFecha = reverse('busquedaVentas', args=['fechaIni', 'fechaFin'])
+	url_reportFechaFSR = reverse('busquedaVentasFSR', args=['fechaIni', 'fechaFin'])
+	url_reportFechaFCR = reverse('busquedaVentasFCR', args=['fechaIni', 'fechaFin', 'razonS'])
+	url_reportFechaRSF = reverse('busquedaVentasRSF', args=['razonS'])
 	
 	context = {
 		'url_template': {
 			'url_verFactura': url_verFactura,
-			'url_reportFecha': url_reportFecha
-		},
+			'url_reportFechaFSR': url_reportFechaFSR,
+			'url_reportFechaFCR': url_reportFechaFCR,
+			'url_reportFechaRSF': url_reportFechaRSF
+		},	
 	}
 	return render(request, 'reportesVentas.html', context)
 
-def busquedaVentas(request, fechaIni, fechaFin):
+def busquedaVentas(request, fechaIni=None, fechaFin=None, razonS=None):
 	if ViewToken(request.META.get("HTTP_X_INTERNAL_TOKEN")):
 		return HttpResponseForbidden("Acceso denegado")
-	FechaInicio = datetime.strptime(fechaIni, '%d-%m-%Y').date()
-	FechaFin = datetime.strptime(fechaFin, '%d-%m-%Y').date()
-	
-	request.session['fechaIni'] = fechaIni
-	request.session['fechaFin'] = fechaFin
-
-
-	Report = Ventas.objects.filter(fecha__range=(FechaInicio, FechaFin)).values(
-		'fecha',
-		'comprobante__descripcion',
-		'n_fact',
-		'cliente__razons',
-		'total',
-	)
+	if fechaIni:
+		FechaInicio = datetime.strptime(fechaIni, '%d-%m-%Y').date()
+		FechaFin = datetime.strptime(fechaFin, '%d-%m-%Y').date()
+		if razonS:
+			Report = Ventas.objects.filter(fecha__range=(FechaInicio, FechaFin), cliente__razons__contains=razonS).values(
+			'fecha',
+			'comprobante__descripcion',
+			'n_fact',
+			'cliente__razons',
+			'total',
+			)
+		else:
+			Report = Ventas.objects.filter(fecha__range=(FechaInicio, FechaFin)).values(
+			'fecha',
+			'comprobante__descripcion',
+			'n_fact',
+			'cliente__razons',
+			'total',
+			)
+	else: 
+		if razonS:
+			Report = Ventas.objects.filter(cliente__razons__contains=razonS).values(
+			'fecha',
+			'comprobante__descripcion',
+			'n_fact',
+			'cliente__razons',
+			'total',
+			)
 
 	if Report.exists():
 		return JsonResponse({

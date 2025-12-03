@@ -38,19 +38,19 @@ header {
 	padding: 20px;
 }
 
-.filtros-fecha {
+/* .filtros-fecha {
 	display: flex;
 	gap: 10px;
 	align-items: center;
 	margin-bottom: 20px;
-}
+} */
 
 .filtros-fecha input {
 	padding: 5px;
 	font-size: 1em;
 }
 
-.filtros-fecha button {
+.box-unico button {
 	padding: 8px 20px;
 	background-color: #2C2C50;
 	color: white;
@@ -63,17 +63,17 @@ header {
 	cursor: pointer
 }
 
-.filtros-fecha button:hover {
+.box-unico button:hover {
 	background-color: #4A4A87;
 	transform: translateY(-1px);
 }
 
-.filtros-fecha button:active {
+.box-unico button:active {
 	transform: translateY(0);
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-.filtros-fecha button:disabled {
+.box-unico button:disabled {
   background-color: #bdc3c7;
   color: #ffffff;
   cursor: not-allowed;
@@ -112,8 +112,8 @@ input[type="text"] {
 
 .label-alerta {
   display: none;
-  background-color: #f8d7da; /* rojo claro */
-  color: #721c24;            /* rojo oscuro */
+  background-color: #f8d7da; 
+  color: #721c24;            
   border: 1px solid #f5c6cb;
   padding: 6px 12px;
   border-radius: 4px;
@@ -142,4 +142,91 @@ input[type="text"] {
 h1 {
 	text-align: center;
     margin-bottom: 30px;
+}
+
+.filtros-fecha {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+
+.contenedor-derecha {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.box-unico {
+    background: #ffffff;
+    padding: 12px 15px;
+    border-radius: 6px;
+    border: 1px solid #d8d8d8;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 240px;
+}
+
+.box-unico.noactivo {
+	pointer-events: none;
+	opacity: 0.4;
+	border: 1px solid #ccc;
+	background: #fff;
+}
+
+.box-titulo {
+    text-align: center;
+    font-weight: 600;
+    color: #333;
+}
+
+.opcion {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95em;
+}
+
+
+
+
+
+.grupoFechas, .grupoCliente{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px 20px;
+    background: #fff;
+    display: inline-block;
+	margin-bottom: 20px;
+	opacity: 0.4;
+    pointer-events: none;
+}
+
+.titulo-grupo-fechas {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1em;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+.filtros-fecha {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.grupo-label-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.grupoFechas.activo, .grupoCliente.activo {
+    opacity: 1;
+    pointer-events: auto;
+	border-color: #2c3e50;
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
 }

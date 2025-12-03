@@ -26,7 +26,7 @@ Important: The Ui is in spanish.
     - Admin interface is completely functional.
 
 - ### Reports:
-    - Invoices can search by date, with respective invoice details
+    - Invoices can search by date, client or both with respective invoice details
     - Work in progress
 
 - ### Errors handling (with respective menssage error):

@@ -11,4 +11,3 @@ mysite/migrations
 db.sqlite3
 Gestor_LaPrimeraDjango/settings.py
 mysite/Afip/wsaa.py
-db.sqlite3

@@ -95,7 +95,7 @@ class Comprobantes(models.Model):
 class Ventas(models.Model):
     fecha = models.DateField()
     comprobante = models.ForeignKey(Comprobantes, on_delete=models.PROTECT)
-    n_fact = models.CharField(max_length=13)
+    n_fact = models.CharField(max_length=14)
     cliente = models.ForeignKey(Clientes, on_delete=models.PROTECT)
     pan105 = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
     pan21 = models.DecimalField(max_digits=9, decimal_places=2, default=0.00) 
